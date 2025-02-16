@@ -1,0 +1,47 @@
+<div class="max-w-4xl mx-auto p-4">
+  <%= if @error do %>
+    <div class="bg-red-100 text-red-700 p-4 rounded">
+      <%= @error %>
+    </div>
+  <% else %>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <button
+          phx-click="change_page"
+          phx-value-page={@current_page - 1}
+          disabled={@current_page <= 1}
+          class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        
+        <div class="flex items-center space-x-2">
+          <span>Page</span>
+          <input
+            type="number"
+            value={@current_page}
+            min="1"
+            max={@total_pages}
+            phx-blur="change_page"
+            phx-value-page={@current_page}
+            class="w-16 px-2 py-1 border rounded"
+          />
+          <span>of <%= @total_pages %></span>
+        </div>
+        
+        <button
+          phx-click="change_page"
+          phx-value-page={@current_page + 1}
+          disabled={@current_page >= @total_pages}
+          class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+
+      <div class="border rounded-lg overflow-hidden">
+        <img src={@image_path} alt={"Page #{@current_page}"} class="w-full" />
+      </div>
+    </div>
+  <% end %>
+</div> 
